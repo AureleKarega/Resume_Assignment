@@ -1,169 +1,29 @@
-/* Reset and base styles */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+// Toggle navbar menu for mobile view
+const menuToggle = document.getElementById('menu-toggle');
+const navLinks = document.getElementById('nav-links');
 
-:root {
-  --primary: #1e90ff;
-  --secondary: #ff6f61;
-  --accent: #fcd34d;
-  --bg: #f5f5f5;
-  --text: #333;
-}
+menuToggle.addEventListener('click', () => {
+  navLinks.classList.toggle('active');
+});
 
-html {
-  scroll-behavior: smooth;
-}
+// Simple form validation
+const contactForm = document.getElementById('contact-form');
+const formResponse = document.getElementById('form-response');
 
-body {
-  font-family: Arial, sans-serif;
-  line-height: 1.6;
-  padding: 1em;
-  background-color: var(--bg);
-  color: var(--text);
-}
+contactForm.addEventListener('submit', function (e) {
+  e.preventDefault();
 
-header {
-  background-color: var(--primary);
-  color: #fff;
-  padding: 1em 0;
-}
+  const name = document.getElementById('name').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const message = document.getElementById('message').value.trim();
 
-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 0 1em;
-}
-
-nav ul {
-  display: flex;
-  list-style: none;
-}
-
-nav li {
-  margin-left: 20px;
-}
-
-nav a {
-  color: white;
-  text-decoration: none;
-  transition: all 0.3s ease-in-out;
-}
-
-nav a:hover {
-  color: var(--accent);
-}
-
-#menu-toggle {
-  display: none;
-  background: none;
-  color: white;
-  font-size: 1.5em;
-  border: none;
-  cursor: pointer;
-}
-
-section {
-  padding: 2em 0;
-  max-width: 960px;
-  margin: 0 auto;
-  animation: fadeIn 1s ease-out;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-}
-
-form input, form textarea {
-  margin-bottom: 1em;
-  padding: 0.5em;
-  font-size: 1em;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-form button {
-  padding: 0.7em;
-  font-size: 1em;
-  background-color: var(--secondary);
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-}
-
-form button:hover {
-  background-color: var(--accent);
-  color: black;
-}
-
-footer {
-  text-align: center;
-  padding: 1em;
-  background-color: var(--primary);
-  color: white;
-  margin-top: 2em;
-}
-
-#projects div {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  padding: 1em;
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  margin-bottom: 1.5em;
-}
-
-#projects div:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  nav ul {
-    display: none;
-    flex-direction: column;
-    background-color: #333;
-    position: absolute;
-    top: 60px;
-    left: 0;
-    width: 100%;
+  if (!name || !email || !message) {
+    formResponse.textContent = 'Please fill in all fields.';
+    formResponse.style.color = 'red';
+    return;
   }
 
-  nav ul.active {
-    display: flex;
-  }
-
-  #menu-toggle {
-    display: block;
-  }
-}
-.profile-photo-container {
-  position: absolute;
-  top: 100px; /* Adjust this value to move image below the blue header */
-  right: 20px;
-  width: 160px;
-  height: 160px;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  z-index: 5;
-}
-.profile-photo-container img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
+  formResponse.textContent = 'Message sent successfully!';
+  formResponse.style.color = 'green';
+  contactForm.reset();
+});
